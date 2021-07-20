@@ -1,0 +1,9 @@
+<div class="card mat-elevation-z2">
+  <span class="mat-title">{{ title }}</span>
+
+  <mat-progress-spinner *ngIf="loading"></mat-progress-spinner>
+
+  <ng-container *ngIf="currentPing">
+    <span class="mat-display-3">{{ $any(currentPing[prop]) | number: format }}{{ unit }}</span>
+  </ng-container>
+</div>
