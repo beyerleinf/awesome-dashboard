@@ -9,11 +9,24 @@ export class PingService {
   constructor(@InjectModel(PingResult.name) private pingResultModel: Model<PingResultDocument>) {}
 
   async create(pingResult: CreatePingResultDTO) {
-    const created = new this.pingResultModel(pingResult);
+    const created = new this.pingResultModel({ ...pingResult, timestamp: new Date() });
     return created.save();
   }
 
   async findAll() {
     return this.pingResultModel.find().exec();
+  }
+
+  async findLatest() {
+    return this.pingResultModel.findOne().sort({ _id: -1 }).limit(1);
+  }
+
+  async findInTimeRange(start: Date, end: Date) {
+    return this.pingResultModel.find({
+      timestamp: {
+        $gte: start,
+        $lte: end,
+      },
+    });
   }
 }

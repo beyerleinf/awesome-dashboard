@@ -13,7 +13,7 @@ export class PingCronService {
   async doPing() {
     this.logger.verbose('Running scheduled ping task');
 
-    const result = await Ping.probe('1.1.1.1', { min_reply: 5 });
+    const result = await Ping.probe('1.1.1.1', { min_reply: 10 });
 
     await this.pingService.create({
       avgPing: Number(result.avg),
@@ -23,7 +23,7 @@ export class PingCronService {
       stdDeviation: Number(result.stddev),
     });
 
-    this.logger.log(await this.pingService.findAll());
+    // this.logger.log(await this.pingService.findAll());
     // this.logger.log(JSON.stringify(result, null, 2));
     this.logger.verbose('Finished scheduled ping task');
   }
