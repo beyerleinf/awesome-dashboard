@@ -23,8 +23,6 @@ export class PingCronService {
       stdDeviation: Number(result.stddev),
     });
 
-    // this.logger.log(await this.pingService.findAll());
-    // this.logger.log(JSON.stringify(result, null, 2));
     this.logger.verbose('Finished scheduled ping task');
   }
 }
